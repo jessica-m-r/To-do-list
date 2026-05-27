@@ -1,31 +1,31 @@
 import { useState } from "react";
 import { updateTask, completeTask, deleteTask } from "../services/taskService.js";
 
-function TaskItem(props){
+function TaskItem(task){
     const [editar, setEditar] = useState(false);
-    const [titulo, setTitulo] = useState(props.titulo);
+    const [titulo, setTitulo] = useState(task.titulo);
     const [descripcion, setDescripcion] = useState(
-        props.descripcion
+        task.descripcion
     );
 
     async function actualizar(){
         await updateTask(
-            props.id,
+            task.id,
             {
                 titulo: titulo,
                 descripcion: descripcion
             }
         );
         setEditar(false);
-        props.onUpdate();
+        task.onUpdate();
     }
     async function completar(){
-        await completeTask(props.id);
-        props.onUpdate();
+        await completeTask(task.id);
+        task.onUpdate();
     }
     async function eliminar(){
-        await deleteTask(props.id);
-        props.onUpdate();
+        await deleteTask(task.id);
+        task.onUpdate();
     }
 
     if(editar){
@@ -59,17 +59,17 @@ function TaskItem(props){
 
     return(
         <div>
-            <h3>{props.titulo}</h3>
-            <p>{props.descripcion}</p>
+            <h3>{task.titulo}</h3>
+            <p>{task.descripcion}</p>
             <p>
                 {
-                    props.completado
+                    task.completado
                     ? "Completada"
                     : "Pendiente"
                 }
             </p>
             {
-                !props.completado &&
+                !task.completado &&
                 <button onClick={completar}>
                     Completar
                 </button>

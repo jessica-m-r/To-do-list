@@ -1,5 +1,15 @@
 # TO DO LIST API
 El proyecto permite crear, leer, actualizar y eliminar tareas. Utiliza Express como framework backend y Firebase Realtime Database como base de datos en tiempo real, sin necesidad de un servidor de base de datos propio.
+## Notas
+### Backend
+- La arquitectura se basó en el modelo del tutorial de biblioteca virtual de MDN:
+https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Server-side/Express_Nodejs
+- Se utilizó IA como apoyo para la conexión con Firebase y el acceso a los datos desde firebase-admin.
+### Frontend
+- Se utilizó la IA para configurar la conexión entre el Frontend y el Backend en el archivo vite.config.js.
+- Se utilizó la IA para actualizar dinámicamente la lista de tareas y gestionar la recarga de datos en App.jsx.
+- Se utilizó la IA para configurar el envío de datos en formato JSON mediante los headers definidos en taskService.js.
+- Se utilizó la IA para implementar el manejo de eventos asociados a las operaciones de crear, editar y eliminar tareas en como en el componente de taskItem.
 ## BACKEND
 ### Tecnologías utilizadas
 - **Node.js**:entorno de ejecución de JavaScript
@@ -49,13 +59,7 @@ El servidor corre por defecto en `http://localhost:3000`.
 | PATCH | `/tasks/:id` | Marcar tarea como completada |
 | DELETE | `/tasks/:id` | Eliminar una tarea |
 
-### Notas
 
-- La arquitectura se basó en el modelo del tutorial de biblioteca virtual de MDN:
-https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Server-side/Express_Nodejs
-- Se utilizó IA como apoyo para la conexión con Firebase y el acceso a los datos desde firebase-admin.
----
 
 ## FRONTEND
 
-> Próximamente.
