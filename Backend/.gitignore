@@ -1,0 +1,8 @@
+node_modules/
+.env
+firebase/firebase-to-do-list.json
+
+npm-debug.log
+yarn-error.log
+
+.DS_Store

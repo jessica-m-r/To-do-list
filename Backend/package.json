@@ -1,0 +1,24 @@
+{
+  "name": "to-do-list",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www",
+    "devstart": "nodemon ./bin/www"
+  },
+  "dependencies": {
+    "cookie-parser": "~1.4.4",
+    "cors": "^2.8.6",
+    "debug": "~2.6.9",
+    "dotenv": "^17.4.2",
+    "express": "~4.16.1",
+    "firebase-admin": "^13.10.0",
+    "http-errors": "~1.6.3",
+    "morgan": "~1.9.1",
+    "pug": "2.0.0-beta11"
+  },
+  "devDependencies": {
+    "apidoc": "^1.2.0",
+    "nodemon": "^3.1.14"
+  }
+}
