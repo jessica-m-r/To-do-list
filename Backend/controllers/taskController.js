@@ -1,5 +1,5 @@
 const database = require("../firebase/firebase");
-const Task = require("../models/task");
+const Task = require("../models/taskModel");
 
 exports.task_list = async(req, res, next) => {
     try{

@@ -1,5 +1,5 @@
 class Task{
-  constructor(titulo, descripcion, completado) {
+  constructor(id,titulo, descripcion, completado){
     this.titulo = titulo;
     this.descripcion = descripcion;
     this.completado = completado;
