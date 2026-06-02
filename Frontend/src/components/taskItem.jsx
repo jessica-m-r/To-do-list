@@ -1,82 +1,58 @@
 import { useState } from "react";
 import { updateTask, completeTask, deleteTask } from "../services/taskService.js";
 
-function TaskItem(task){
+function TaskItem({ id, titulo, descripcion, completado, onUpdate }) {
+
     const [editar, setEditar] = useState(false);
-    const [titulo, setTitulo] = useState(task.titulo);
-    const [descripcion, setDescripcion] = useState(
-        task.descripcion
-    );
+    const [newTitulo, setTitulo] = useState(titulo);
+    const [newDescripcion, setDescripcion] = useState(descripcion);
 
-    async function actualizar(){
-        await updateTask(
-            task.id,
-            {
-                titulo: titulo,
-                descripcion: descripcion
-            }
-        );
+    async function actualizar() {
+        await updateTask(id, {
+            titulo: newTitulo,
+            descripcion: newDescripcion
+        });
         setEditar(false);
-        task.onUpdate();
+        onUpdate();
     }
-    async function completar(){
-        await completeTask(task.id);
-        task.onUpdate();
+    async function completar() {
+        await completeTask(id);
+        onUpdate();
     }
-    async function eliminar(){
-        await deleteTask(task.id);
-        task.onUpdate();
+    async function eliminar() {
+        await deleteTask(id);
+        onUpdate();
     }
 
-    if(editar){
-        return(
+    if (editar) {
+        return (
             <div className="div-task">
-                <input 
+                <input
                     type="text"
-                    value={titulo}
-                    onChange={(e)=>{
-                        setTitulo(e.target.value);
-                    }}
+                    value={newTitulo}
+                    onChange={(e) => setTitulo(e.target.value)}
                 />
-                <input 
+                <input
                     type="text"
-                    value={descripcion}
-                    onChange={(e)=>{
-                        setDescripcion(e.target.value);
-                    }}
+                    value={newDescripcion}
+                    onChange={(e) => setDescripcion(e.target.value)}
                 />
-                <button onClick={actualizar}>
-                    Guardar
-                </button>
-                <button onClick={()=>{
-                    setEditar(false);
-                }}>
-                    Cancelar
-                </button>
+                <button onClick={actualizar}>Guardar</button>
+                <button onClick={() => setEditar(false)}>Cancelar</button>
             </div>
         );
     }
-
-    return(
+    return (
         <div className="div-task">
-            <h3>{task.titulo}</h3>
-            <p className="p-task">{task.descripcion}</p>
+            <h3>{titulo}</h3>
+            <p className="p-task">{descripcion}</p>
             <p className="p-task">
-                {
-                    task.completado
-                    ? "Completada"
-                    : "Pendiente"
-                }
+                {completado ? "Completada" : "Pendiente"}
             </p>
-            {
-                !task.completado &&
-                <button onClick={completar}>
-                    Completar
-                </button>
-            }
-            <button onClick={()=>{setEditar(true);}}>
-                Editar
-            </button>
+            {!completado && (
+            <button onClick={completar}>Completar</button>
+            )}
+            <button onClick={() => setEditar(true)}>Editar</button>
             <button onClick={eliminar}>Eliminar</button>
         </div>
     );

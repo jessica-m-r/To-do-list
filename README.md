@@ -7,6 +7,8 @@ El proyecto utiliza Express como framework backend y Firebase Realtime Database 
 - La arquitectura se basó en el modelo del tutorial de biblioteca virtual de MDN:
 https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Server-side/Express_Nodejs
 - Se utilizó IA como apoyo para la conexión con Firebase
+- Para la autenticacion que se apoyo de la IA y documentacion para autenticacion con JWT [Node.js Express: JWT example](https://www.bezkoder.com/node-js-jwt-authentication-mysql/)
+
 #### To do list
 - Se utilizó la IA como apoyo para saber como mandar y obtener los datos en firebase
 #### Drive
@@ -22,6 +24,8 @@ https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Server
 - Se utilizó la IA para actualizar dinámicamente la lista de tareas y gestionar la recarga de datos en App.jsx.
 - Se utilizó la IA para configurar el envío de datos en formato JSON mediante los headers definidos en taskService.js.
 - Se utilizó la IA para implementar el manejo de eventos asociados a las operaciones de crear, editar y eliminar tareas en como en el componente de taskItem.
+- Se utilizó IA para implementar la autenticación y permitir el acceso a los módulos de Drive y To Do List.
+- También se utilizó en la integración de subida y descarga de archivos, facilitando la correcta conexión entre el frontend y los endpoints del backend.
 ## BACKEND
 ### Tecnologías utilizadas
 - **Node.js**:entorno de ejecución de JavaScript
@@ -61,4 +65,15 @@ https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Server
 El servidor corre por defecto en `http://localhost:3000`.
 
 ## FRONTEND
+### Tecnologías utilizadas
+- **React** – Biblioteca para interfaces de usuario
+- **Vite** – Empaquetador rápido y entorno de desarrollo
+- **Fetch API** – Comunicación con el backend (sin dependencias extra)
+### Requisitos previos
+- Node.js (v18 o superior)
+- Backend ejecutándose en `http://localhost:3000`
 
+### Funcionalidades implementadas
+- Autenticación – Registro e inicio de sesión con email, contraseña y nombre. El token JWT se almacena en localStorage.
+- Gestión de tareas – Crear, listar, editar, completar y eliminar tareas. Cada tarea tiene título, descripción y estado.
+- Drive de archivos – Subir archivos (cualquier tipo), listar los archivos subidos, eliminarlos y descargarlos.
