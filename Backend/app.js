@@ -1,6 +1,7 @@
 var express = require('express');
 var logger = require('morgan');
 
+var cors = require("cors");
 var taskRouter = require("./routes/tasksRoutes");
 var driveRouter = require("./routes/driveRoutes");
 var authRouter = require("./routes/authRoutes");
@@ -10,6 +11,7 @@ var app = express();
 app.listen(3000, ()=>{
     console.log('Funcionando en el puerto 3000')
 })
+app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

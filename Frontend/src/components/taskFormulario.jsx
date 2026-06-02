@@ -26,7 +26,7 @@ function TaskFormulario(props){
     }
 
     return(
-        <form onSubmit={guardarTarea}>
+        <form className = "form-task" onSubmit={guardarTarea}>
             <input
                 type="text"
                 placeholder="Ingrese titulo"

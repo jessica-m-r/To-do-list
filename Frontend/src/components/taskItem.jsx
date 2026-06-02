@@ -30,15 +30,15 @@ function TaskItem(task){
 
     if(editar){
         return(
-            <div>
-                <input
+            <div className="div-task">
+                <input 
                     type="text"
                     value={titulo}
                     onChange={(e)=>{
                         setTitulo(e.target.value);
                     }}
                 />
-                <input
+                <input 
                     type="text"
                     value={descripcion}
                     onChange={(e)=>{
@@ -58,10 +58,10 @@ function TaskItem(task){
     }
 
     return(
-        <div>
+        <div className="div-task">
             <h3>{task.titulo}</h3>
-            <p>{task.descripcion}</p>
-            <p>
+            <p className="p-task">{task.descripcion}</p>
+            <p className="p-task">
                 {
                     task.completado
                     ? "Completada"

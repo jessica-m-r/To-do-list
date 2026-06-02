@@ -24,7 +24,7 @@ function TaskLista(props){
     }, [props.refresh]);
     if(tareas.length == 0){
         return(
-            <p>No hay tareas</p>
+            <p className="p-task">No hay tareas</p>
         );
     }
     return(
