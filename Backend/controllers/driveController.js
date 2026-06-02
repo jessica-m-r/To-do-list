@@ -19,6 +19,7 @@ exports.upload_file = async(req, res, next) =>{
             file
         });
     }catch(error){
+        console.log(error);
         next(error);
     }
 }
@@ -30,6 +31,7 @@ exports.file_list = async (req, res, next) => {
         }
         res.json(datos.val());
     }catch (error){
+        console.log(error);
         next(error);
     }
 };
@@ -50,6 +52,25 @@ exports.file_delete = async(req, res, next) => {
         await database.ref("files/" + id).remove();
         res.json({mensaje: "Archivo eliminado correctamente"});
     }catch(error){
+        console.log(error);
         next(error);
     }
 };
+
+exports.file_download = async(req, res, next) => {
+    try{
+        const{id} = req.params;
+        const archivo = await database.ref("files/" + id).get();
+
+        if(!archivo.exists()){
+            return res.status(404).json({mensaje:"Error archivo inexistente"})
+        }
+        const archivoDatos = archivo.val();
+        const rutaArchivo = path.join(__dirname, "../uploads",archivoDatos.titulo)
+        res.download(rutaArchivo, archivoDatos.filename)
+
+    }catch(error){
+        console.log(error);
+        next(error);
+    }
+}
