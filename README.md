@@ -1,10 +1,17 @@
-# TO DO LIST API
+# TO DO LIST / DRIVE
 El proyecto permite crear, leer, actualizar y eliminar tareas. Utiliza Express como framework backend y Firebase Realtime Database como base de datos en tiempo real, sin necesidad de un servidor de base de datos propio.
-## Notas
+## Referencias
 ### Backend
 - La arquitectura se basó en el modelo del tutorial de biblioteca virtual de MDN:
 https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Server-side/Express_Nodejs
-- Se utilizó IA como apoyo para la conexión con Firebase y el acceso a los datos desde firebase-admin.
+- Se utilizó IA como apoyo para la conexión con Firebase
+#### To do list
+- Se utilizó la IA como apoyo para saber como mandar y obtener los datos en firebase
+#### Drive
+- Para subir archivos se utilizo los siguientes videos tutoriales:4
+  - [SUBIR ARCHIVOS con EXPRESS JS y MULTER](https://youtu.be/wsn6PyQLtfY?si=PnvUow2Qk9mWxITg)
+  - [De principiante a experto con Multer: gestión completa de archivos en tu servidor](https://youtu.be/2QYwRishObs?si=rGWaeyfla-RDvp2V)
+  
 ### Frontend
 - Se utilizó la IA para configurar la conexión entre el Frontend y el Backend en el archivo vite.config.js.
 - Se utilizó la IA para actualizar dinámicamente la lista de tareas y gestionar la recarga de datos en App.jsx.

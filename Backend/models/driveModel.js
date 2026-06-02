@@ -1,8 +1,8 @@
 class File{
-  constructor(id, titulo,fecha) {
-    this.id = id
+  constructor(titulo,fecha, hora) {
     this.titulo = titulo;
     this.fecha = fecha;
+    this.hora = hora;
   }
 }
 
