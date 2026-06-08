@@ -1,19 +1,30 @@
+const crypto = require("crypto");
 const database = require("../firebase/firebase");
 const Task = require("../models/taskModel");
 
-exports.task_list = async(req, res, next) => {
-    try{
-        const uid = req.user.uid;
-        const datos = await database.ref(`users/${uid}/tasks`).get();
-        if(!datos.exists()){
-            return res.json([]);
-        }
-        res.json(datos.val());
-    }catch(error){
-        next(error);
-    }
+exports.task_list = async (req, res, next) => {
+  try {
+    const { uid } = req.user;
+    const limit = 5;
+    const cursor = req.query.cursor;
+    let query = database.ref(`users/${uid}/tasks`).orderByKey().limitToFirst(limit);
+    if (cursor) query = query.startAfter(cursor);
+    const snapshot = await query.get();
+    if (!snapshot.exists()) return res.json({ data: [], nextCursor: null });
+    const items = [];
+    snapshot.forEach(child => {
+      items.push({ id: child.key, ...child.val() });
+    });
+    const nextCursor = items.length === limit ? items[items.length - 1].id : null;
+    const etag = `"${crypto.createHash('md5').update(JSON.stringify(items)).digest('hex')}"`;
+    if (req.headers['if-none-match'] === etag) return res.status(304).end();
+    res.set('ETag', etag);
+    res.set('Cache-Control', 'no-cache');
+    res.json({ data: items, nextCursor });
+  } catch (error) {
+    next(error);
+  }
 };
-
 exports.task_create = async(req, res, next) => {
     try{
         const uid = req.user.uid;

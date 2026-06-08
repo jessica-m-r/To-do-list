@@ -9,17 +9,27 @@ import "./App.css";
 
 function App() {
     const [refresh, setRefresh] = useState(0);
-    const [usuario, setUsuario] = useState(null);
-    const [vista, setVista] = useState("login");
+    const [usuario, setUsuario] = useState(() => {
+        const token = localStorage.getItem("token");
+        return token ? { accessToken: token } : null;
+    });
+    const [vista, setVistaState] = useState(() => {
+        return localStorage.getItem("vista") || (localStorage.getItem("token") ? "home" : "login");
+    });
 
     const recargar = () => setRefresh((prev) => prev + 1);
+
+    function cambiarVista(nuevaVista) {
+        localStorage.setItem("vista", nuevaVista);
+        setVistaState(nuevaVista);
+    }
 
     async function login(email, password){
         const datos = await iniciarSesion(email, password);
         if (!datos.accessToken) return alert("Credenciales incorrectas");
         localStorage.setItem("token", datos.accessToken);
         setUsuario(datos);
-        setVista("home");
+        cambiarVista("home");
     }
 
     async function register(email, password, nombre){
@@ -27,29 +37,30 @@ function App() {
         if (!datos.accessToken) return alert("Error al registrarse");
         localStorage.setItem("token", datos.accessToken);
         setUsuario(datos);
-        setVista("home");
+        cambiarVista("home");
     }
 
     function cerrarSesion(){
         localStorage.removeItem("token");
+        localStorage.removeItem("vista");
         setUsuario(null);
-        setVista("login");
+        setVistaState("login");
     }
 
     if(!usuario && vista === "login"){
-        return <Login onLogin={login} onIrRegister={() => setVista("register")} />;
+        return <Login onLogin={login} onIrRegister={() => cambiarVista("register")} />;
     }
 
     if(!usuario && vista === "register"){
-        return <Register onRegister={register} onIrLogin={() => setVista("login")} />;
+        return <Register onRegister={register} onIrLogin={() => cambiarVista("login")} />;
     }
 
     if(vista === "home"){
         return (
             <div className="div-task">
                 <h1>Bienvenido</h1>
-                <button onClick={() => setVista("todo")}>To Do List</button>
-                <button onClick={() => setVista("drive")}>Drive</button>
+                <button onClick={() => cambiarVista("todo")}>To Do List</button>
+                <button onClick={() => cambiarVista("drive")}>Drive</button>
                 <button onClick={cerrarSesion}>Cerrar sesión</button>
             </div>
         );
@@ -58,8 +69,8 @@ function App() {
     if(vista === "todo"){
         return (
             <div className="div-task">
-                <button onClick={() => setVista("drive")}>Ir a Drive</button>
-                <button onClick={() => setVista("home")}>Inicio</button>
+                <button onClick={() => cambiarVista("drive")}>Ir a Drive</button>
+                <button onClick={() => cambiarVista("home")}>Inicio</button>
                 <button onClick={cerrarSesion}>Cerrar sesión</button>
                 <h1>To Do List</h1>
                 <TaskFormulario onTaskCreated={recargar} />
@@ -71,14 +82,15 @@ function App() {
     if(vista === "drive"){
         return (
             <div className="div-task">
-                <button onClick={() => setVista("todo")}>Ir a To Do List</button>
-                <button onClick={() => setVista("home")}>Inicio</button>
+                <button onClick={() => cambiarVista("todo")}>Ir a To Do List</button>
+                <button onClick={() => cambiarVista("home")}>Inicio</button>
                 <button onClick={cerrarSesion}>Cerrar sesión</button>
                 <h1>Drive</h1>
                 <Drive />
             </div>
         );
     }
+
     return null;
 }
 

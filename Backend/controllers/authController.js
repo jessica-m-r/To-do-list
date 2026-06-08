@@ -17,7 +17,7 @@ async function register(req, res) {
     const passwordEncriptado = await bcrypt.hash(password, 8);
     const user = new User(email, passwordEncriptado, nombre || "");
     const ref = await database.ref("users").push(user);
-    const token = jwt.sign({ uid: ref.key, email }, process.env.JWT_SECRET, { expiresIn: "24h" });
+    const token = jwt.sign({ uid: ref.key, email }, process.env.JWT_SECRET, { expiresIn: "30d" });
     res.status(201).json({ accessToken: token });
   }catch (err){
     res.status(500).json({ message: "Error al registrar usuario" });
@@ -41,7 +41,7 @@ async function login(req, res) {
     if(!passwordCorrecto){
       return res.status(401).json({ message: "Contraseña incorrecta" });
     }
-    const token = jwt.sign({ uid, email }, process.env.JWT_SECRET, { expiresIn: "24h" });
+    const token = jwt.sign({ uid, email }, process.env.JWT_SECRET, { expiresIn: "30d" });
     res.json({ accessToken: token, nombre: user.nombre, email });
   }catch(err){
     res.status(500).json({ message: "Error al iniciar sesión" });

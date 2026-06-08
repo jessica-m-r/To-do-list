@@ -4,21 +4,22 @@ import TaskItem from "./taskItem.jsx";
 
 function TaskLista({ refresh, onUpdate }) {
     const [tareas, setTareas] = useState([]);
+    const [cursor, setCursor] = useState(null);
+    const [hasMore, setHasMore] = useState(false);
     useEffect(() => {
         async function cargarTareas() {
-            const datos = await getTasks();
-            let lista = [];
-            if (datos) {
-                for (let id in datos) {
-                    lista.push({
-                        id: id,
-                        titulo: datos[id].titulo,
-                        descripcion: datos[id].descripcion,
-                        completado: datos[id].completado
-                    });
-                }
-            }
+            const respuesta = await getTasks(null);
+            console.log("respuesta:", respuesta);
+            if (!respuesta) return;
+            const lista = respuesta.data?.map(tarea => ({
+                id: tarea.id,
+                titulo: tarea.titulo,
+                descripcion: tarea.descripcion,
+                completado: tarea.completado
+            })) || [];
             setTareas(lista);
+            setCursor(respuesta.nextCursor);
+            setHasMore(!!respuesta.nextCursor);
         }
         cargarTareas();
     }, [refresh]);
