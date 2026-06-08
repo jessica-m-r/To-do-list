@@ -11,11 +11,13 @@ function authHeader() {
     };
 }
 
-export const getTasks = async () => {
-    const res = await fetch(BASE_URL, {
+export const getTasks = async (cursor = null) => {
+    const url = cursor ? `${BASE_URL}?cursor=${cursor}` : BASE_URL;
+    const res = await fetch(url, {
         headers: authHeader()
-    });
-    return res.json();
+    });   
+    if (!res.ok) throw new Error('Error al cargar tareas');
+    return res.json(); 
 };
 
 export const getTask = async (id) => {

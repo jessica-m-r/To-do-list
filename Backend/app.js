@@ -8,9 +8,16 @@ var authRouter = require("./routes/authRoutes");
 var verificarToken = require("./middleware/verificarToken");
 
 var app = express();
-app.listen(3000, ()=>{
-    console.log('Funcionando en el puerto 3000')
-})
+const https = require("https");
+const fs = require("fs");
+
+const options = {
+    key: fs.readFileSync("key.pem"),
+    cert: fs.readFileSync("cert.pem")
+};
+https.createServer(options, app).listen(3000, () => {
+    console.log("Funcionando en https://localhost:3000");
+});
 app.use(cors());
 app.use(logger('dev'));
 app.use(express.json());

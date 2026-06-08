@@ -8,3 +8,6 @@ yarn-error.log
 .DS_Store
 uploads/**
 !.gitkeep
+
+cert.pem
+key.pem

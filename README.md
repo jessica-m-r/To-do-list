@@ -11,6 +11,7 @@ https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Server
 
 #### To do list
 - Se utilizó la IA como apoyo para saber como mandar y obtener los datos en firebase
+- Para el uso de ETag con la paginación se apoyo de la IA para que funcione correctamente
 #### Drive
 - Documentacion de multer https://github.com/expressjs/multer/blob/main/doc/README-es.md
 - Para subir archivos se utilizo los siguientes videos tutoriales:4
@@ -26,6 +27,14 @@ https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Server
 - Se utilizó la IA para implementar el manejo de eventos asociados a las operaciones de crear, editar y eliminar tareas en como en el componente de taskItem.
 - Se utilizó IA para implementar la autenticación y permitir el acceso a los módulos de Drive y To Do List.
 - También se utilizó en la integración de subida y descarga de archivos, facilitando la correcta conexión entre el frontend y los endpoints del backend.
+- Se utilizo la IA para poder mostrar correctamente con paginacion lo que es la lista de tareas.
+
+## Certificado SSL (desarrollo local)
+Para la parte de cambio de http a https se generaron certificados SSL autofirmados.  
+Para que funcione se debe generar los certificados autofirmados que deben estar tanto en Backend como en Frontend usando el siguiente comando:
+```
+openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -nodes
+``` 
 ## BACKEND
 ### Tecnologías utilizadas
 - **Node.js**:entorno de ejecución de JavaScript
@@ -47,12 +56,13 @@ https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Server
     ```
 2. Instala las dependencias:
     ```
-    npm install express morgan firebase-admin dotenv
+    npm install express morgan firebase-admin dotenv jsonwebtoken
     ```
 3. Crea un archivo `.env` en la raíz del proyecto con las siguientes variables:
-    ```
+```
     FIREBASE_DATABASE_URL=https://<tu-proyecto>.firebaseio.com
-    ```
+    JWT_SECRET=tu_clave_secreta
+```
 4. Descarga el archivo de credenciales de Firebase:
     - Ve a tu proyecto en Firebase → Configuración del proyecto → Cuentas de servicio
     - Genera una nueva clave privada y descarga el archivo JSON
@@ -62,7 +72,7 @@ https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Server
     ```
     npx nodemon
     ```
-El servidor corre por defecto en `http://localhost:3000`.
+El servidor corre por defecto en `https://localhost:3000`.
 
 ## FRONTEND
 ### Tecnologías utilizadas
@@ -71,7 +81,7 @@ El servidor corre por defecto en `http://localhost:3000`.
 - **Fetch API** – Comunicación con el backend (sin dependencias extra)
 ### Requisitos previos
 - Node.js (v18 o superior)
-- Backend ejecutándose en `http://localhost:3000`
+- Backend ejecutándose en `https://localhost:3000`
 
 ### Funcionalidades implementadas
 - Autenticación – Registro e inicio de sesión con email, contraseña y nombre. El token JWT se almacena en localStorage.
