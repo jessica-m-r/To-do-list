@@ -56,18 +56,18 @@ openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -node
     ```
 2. Instala las dependencias:
     ```
-    npm install express morgan firebase-admin dotenv jsonwebtoken
+    npm install
     ```
 3. Crea un archivo `.env` en la raíz del proyecto con las siguientes variables:
 ```
-    FIREBASE_DATABASE_URL=https://<tu-proyecto>.firebaseio.com
+    FIREBASE_DATABASE_URL=https://<tu-proyecto>.firebaseio.com   
+
     JWT_SECRET=tu_clave_secreta
 ```
 4. Descarga el archivo de credenciales de Firebase:
     - Ve a tu proyecto en Firebase → Configuración del proyecto → Cuentas de servicio
     - Genera una nueva clave privada y descarga el archivo JSON
-    - Colócalo en la carpeta `firebase/` y asegúrate de que el nombre coincida con el que se importa en el código
-    - Agrega ese archivo al `.gitignore` para no exponerlo
+    - Colócalo en la carpeta `firebase/` y asegúrate de que el nombre coincida con el que se importa en el código en este caso `firebase-to-do-list.json`
 5. Inicia el servidor en desarrollo:
     ```
     npx nodemon
@@ -82,6 +82,14 @@ El servidor corre por defecto en `https://localhost:3000`.
 ### Requisitos previos
 - Node.js (v18 o superior)
 - Backend ejecutándose en `https://localhost:3000`
+- Instalar las dependencias del package.json
+```
+npm install
+```
+- Ejecutar con el comando de abajo y correra en `https://localhost:5173/`
+```
+npm run dev
+```
 
 ### Funcionalidades implementadas
 - Autenticación – Registro e inicio de sesión con email, contraseña y nombre. El token JWT se almacena en localStorage.
