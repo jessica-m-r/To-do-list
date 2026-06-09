@@ -13,8 +13,19 @@ export default defineConfig({
       "/tasks": {
         target: "https://localhost:3000",
         changeOrigin: true,
-        secure: false, 
+        secure: false,
+      },
+      "/files": {
+        target: "https://localhost:3000",
+        changeOrigin: true,
+        secure: false,
+      },
+      "/auth": {
+        target: "https://localhost:3000",
+        changeOrigin: true,
+        secure: false,
       },
     },
   },
 })
+

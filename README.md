@@ -8,7 +8,8 @@ El proyecto utiliza Express como framework backend y Firebase Realtime Database 
 https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Server-side/Express_Nodejs
 - Se utilizó IA como apoyo para la conexión con Firebase
 - Para la autenticacion que se apoyo de la IA y documentacion para autenticacion con JWT [Node.js Express: JWT example](https://www.bezkoder.com/node-js-jwt-authentication-mysql/)
-
+- Para cambiar de http a https se crearon certificados autofirmados y puede que salga con adventencia, pero solo aceptar para que muestre la pagina.
+- El poblador para hacer pruebas fue generado netamente con IA.
 #### To do list
 - Se utilizó la IA como apoyo para saber como mandar y obtener los datos en firebase
 - Para el uso de ETag con la paginación se apoyo de la IA para que funcione correctamente
@@ -31,7 +32,7 @@ https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Server
 
 ## Certificado SSL (desarrollo local)
 Para la parte de cambio de http a https se generaron certificados SSL autofirmados.  
-Para que funcione se debe generar los certificados autofirmados que deben estar tanto en Backend como en Frontend usando el siguiente comando:
+Para que funcione solo se debe generar una vez los certificados key.pem y cert.pem en la raiz de la carpeta Backend, copiar y pegar ese certificado en la raiz de la carpeta del Frontend.
 ```
 openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -nodes
 ``` 
@@ -46,7 +47,7 @@ openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -node
 - **multer**: middleware para la recepción y gestión de archivos
 ### Requisitos previos
 - Node.js instalado (v18 o superior)
-- Cuenta en [Firebase](https://firebase.google.com/) con un proyecto creado
+- Cuenta en [Firebase](https://firebase.google.com/) crea un proyecto en firebase
 - Realtime Database habilitada en el proyecto de Firebase
 ### Instalación
 1. Clona el repositorio:
@@ -68,7 +69,16 @@ openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365 -node
     - Ve a tu proyecto en Firebase → Configuración del proyecto → Cuentas de servicio
     - Genera una nueva clave privada y descarga el archivo JSON
     - Colócalo en la carpeta `firebase/` y asegúrate de que el nombre coincida con el que se importa en el código en este caso `firebase-to-do-list.json`
-5. Inicia el servidor en desarrollo:
+5. Ejecutar el comando de abajo en la raiz del Backend para poblar tu base de datos.
+```
+node seed.js
+```
+EL usuario que creara es:
+- gmail: prueba@gmail.com
+- usuario: prueba
+- contraseña: 1234  
+En la pagina principal se debe agregar el gmail y la contraseña  
+6. Inicia el servidor en desarrollo:
     ```
     npx nodemon
     ```
